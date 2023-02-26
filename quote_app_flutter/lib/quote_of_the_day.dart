@@ -17,12 +17,8 @@ class QuoteOfTheDayWidgetState extends State<QuoteOfTheDayWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Quote of the day',
-            ),
-            const Text(
-              '- Author',
-            ),
+            buildQuoteOfTheDayTexts(
+                'Today is the first day of your future.', 'Unknown'),
             buildMenuButton('Save quote of the day', () {}),
             buildMenuButton('View all quotes', () {}),
           ],
@@ -36,8 +32,43 @@ class QuoteOfTheDayWidgetState extends State<QuoteOfTheDayWidget> {
         padding: const EdgeInsets.all(15),
         child: TextButton(
             onPressed: onPressed,
-            style: TextButton.styleFrom(backgroundColor: const Color(0xFFC0F0F7),
-            foregroundColor: const Color(0xFF10609D)),
+            style: myButtonStyle(),
             child: Text(text, textScaleFactor: 2)));
+  }
+
+  Widget buildQuoteOfTheDayTexts(String quote, String author) {
+    return Container(
+        margin: EdgeInsets.all(20),
+        padding: EdgeInsets.all(15),
+        color: Color(0xFFC0F0F7),
+        child: Column(children: [
+          Text(quote,
+              textScaleFactor: 3,
+              textAlign: TextAlign.center,
+              style: quoteStyle()),
+          Container(
+              alignment: Alignment.centerRight,
+              child: Text('- ' + author,
+                  textScaleFactor: 2.5,
+                  textAlign: TextAlign.right,
+                  style: authorStyle()))
+        ]));
+  }
+
+  ButtonStyle? myButtonStyle() {
+    return TextButton.styleFrom(
+        backgroundColor: const Color(0xFF10609D),
+        foregroundColor: const Color(0xFFC0F0F7));
+  }
+
+  TextStyle? quoteStyle() {
+    return const TextStyle(color: const Color(0xFF10609D), fontFamily: "Sans");
+  }
+
+  TextStyle? authorStyle() {
+    return const TextStyle(
+        color: const Color(0xFF10609D),
+        fontFamily: "Sans",
+        fontStyle: FontStyle.italic);
   }
 }
