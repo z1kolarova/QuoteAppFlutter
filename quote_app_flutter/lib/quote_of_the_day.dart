@@ -1,73 +1,42 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:quote_app_flutter/quote.dart';
+import 'package:quote_app_flutter/zen_quotes_api_client.dart';
 
-class QuoteOfTheDayWidget extends StatefulWidget {
+class QuoteOfTheDay extends StatefulWidget {
+  const QuoteOfTheDay({super.key});
+
   @override
-  State<StatefulWidget> createState() => QuoteOfTheDayWidgetState();
+  State<StatefulWidget> createState() => QuoteOfTheDayState();
 }
 
-class QuoteOfTheDayWidgetState extends State<QuoteOfTheDayWidget> {
+class QuoteOfTheDayState extends State<QuoteOfTheDay> {
+  final Future<Quote> quote = ZenQuotesAPIClient.fetchQuoteOfTheDay();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quote of the day'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            buildQuoteOfTheDayTexts(
-                'Today is the first day of your future.', 'Unknown'),
-            buildMenuButton('Save quote of the day', () {}),
-            buildMenuButton('View all quotes', () {}),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildMenuButton(String text, void Function()? onPressed) {
-    return Padding(
-        padding: const EdgeInsets.all(15),
-        child: TextButton(
-            onPressed: onPressed,
-            style: myButtonStyle(),
-            child: Text(text, textScaleFactor: 2)));
-  }
-
-  Widget buildQuoteOfTheDayTexts(String quote, String author) {
     return Container(
-        margin: EdgeInsets.all(20),
-        padding: EdgeInsets.all(15),
-        color: Color(0xFFC0F0F7),
+        margin: const EdgeInsets.all(20),
+        color: const Color(0xFFC0F0F7),
         child: Column(children: [
-          Text(quote,
-              textScaleFactor: 3,
+          Text('Today is the first day of your future.',
+              textScaleFactor: 2.5,
               textAlign: TextAlign.center,
               style: quoteStyle()),
           Container(
               alignment: Alignment.centerRight,
-              child: Text('- ' + author,
-                  textScaleFactor: 2.5,
-                  textAlign: TextAlign.right,
+              child: Text('- Unknown',
+                  textScaleFactor: 2,
                   style: authorStyle()))
         ]));
   }
 
-  ButtonStyle? myButtonStyle() {
-    return TextButton.styleFrom(
-        backgroundColor: const Color(0xFF10609D),
-        foregroundColor: const Color(0xFFC0F0F7));
-  }
-
   TextStyle? quoteStyle() {
-    return const TextStyle(color: const Color(0xFF10609D), fontFamily: "Sans");
+    return const TextStyle(color: Color(0xFF10609D), fontFamily: "Sans");
   }
 
   TextStyle? authorStyle() {
     return const TextStyle(
-        color: const Color(0xFF10609D),
+        color: Color(0xFF10609D),
         fontFamily: "Sans",
         fontStyle: FontStyle.italic);
   }
