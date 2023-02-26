@@ -17,17 +17,38 @@ class QuoteOfTheDayState extends State<QuoteOfTheDay> {
     return Container(
         margin: const EdgeInsets.all(20),
         color: const Color(0xFFC0F0F7),
-        child: Column(children: [
-          Text('Today is the first day of your future.',
-              textScaleFactor: 2.5,
-              textAlign: TextAlign.center,
-              style: quoteStyle()),
-          Container(
-              alignment: Alignment.centerRight,
-              child: Text('- Unknown',
-                  textScaleFactor: 2,
-                  style: authorStyle()))
-        ]));
+        child: FutureBuilder<Quote>(
+          future: quote,
+          builder: (BuildContext context, AsyncSnapshot<Quote> snapshot) {
+            String quoteText;
+            String author;
+            if (snapshot.hasData) {
+              quoteText = snapshot.data!.text;
+              author = snapshot.data!.author;
+            } else if (snapshot.hasError) {
+              quoteText = 'There was an error getting the quote of the day, sorry about that.';
+              author = 'Quote App';
+            } else {
+              quoteText = 'I am fetching the quote of the day for you!';
+              author = 'Quote App';
+            }
+            return columnWithQuteTextAndAuthor(quoteText, author);
+          },
+        ));
+  }
+
+  Column columnWithQuteTextAndAuthor(String quote, String author) {
+    return Column(children: [
+      Text(quote,
+          textScaleFactor: 2,
+          textAlign: TextAlign.center,
+          style: quoteStyle()),
+      Container(
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.only(top: 20, right: 10),
+          child: Text('- $author',
+              textScaleFactor: 1.5, style: authorStyle()))
+    ]);
   }
 
   TextStyle? quoteStyle() {
