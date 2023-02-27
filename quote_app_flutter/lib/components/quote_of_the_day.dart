@@ -32,12 +32,12 @@ class QuoteOfTheDayState extends State<QuoteOfTheDay> {
               quoteText = 'I am fetching the quote of the day for you!';
               author = 'Quote App';
             }
-            return columnWithQuteTextAndAuthor(quoteText, author);
+            return columnWithQuoteTextAndAuthor(quoteText, author);
           },
         ));
   }
 
-  Column columnWithQuteTextAndAuthor(String quote, String author) {
+  Column columnWithQuoteTextAndAuthor(String quote, String author) {
     return Column(children: [
       Text(quote,
           textScaleFactor: 2,
@@ -45,7 +45,7 @@ class QuoteOfTheDayState extends State<QuoteOfTheDay> {
           style: quoteStyle()),
       Container(
           alignment: Alignment.centerRight,
-          padding: const EdgeInsets.only(top: 20, right: 10),
+          padding: const EdgeInsets.only(top: 15, right: 10),
           child: Text('- $author',
               textScaleFactor: 1.5, style: authorStyle()))
     ]);

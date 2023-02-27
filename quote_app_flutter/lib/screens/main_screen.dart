@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quote_app_flutter/quote_of_the_day.dart';
+import 'package:quote_app_flutter/all_quotes.dart';
+import 'package:quote_app_flutter/components/quote_of_the_day.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   State<StatefulWidget> createState() => MainScreenState();
 }
@@ -18,9 +20,9 @@ class MainScreenState extends State<MainScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            QuoteOfTheDay(),
-            buildMenuButton('Save quote of the day', () {}),
-            buildMenuButton('View all quotes', () {}),
+            const QuoteOfTheDay(),
+            buildMenuButton('Save quote of the day', () {} ),
+            buildMenuButton('View all quotes', switchToAllQuotesListView ),
           ],
         ),
       ),
@@ -40,5 +42,11 @@ class MainScreenState extends State<MainScreen> {
     return TextButton.styleFrom(
         backgroundColor: const Color(0xFF10609D),
         foregroundColor: const Color(0xFFC0F0F7));
+  }
+
+  switchToAllQuotesListView() {
+    Navigator.push(
+      context, MaterialPageRoute(builder: (context) => const AllQuotesScreen())
+    );
   }
 }

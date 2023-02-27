@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quote_app_flutter/main_screen.dart';
+import 'package:quote_app_flutter/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: const Color(0xFFC0F0F7)
       ),
-      home: MainScreen(),
+      home: const MainScreen(),
     );
   }
 }
