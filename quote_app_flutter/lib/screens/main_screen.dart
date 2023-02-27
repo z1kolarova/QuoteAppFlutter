@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quote_app_flutter/all_quotes.dart';
+import 'package:quote_app_flutter/screens/all_quotes_screen.dart';
 import 'package:quote_app_flutter/components/quote_of_the_day.dart';
 
 class MainScreen extends StatefulWidget {

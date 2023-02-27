@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:quote_app_flutter/quote.dart';
-import 'package:quote_app_flutter/zen_quotes_api_client.dart';
+import 'package:quote_app_flutter/model/quote.dart';
+import 'package:quote_app_flutter/model/zen_quotes_api_client.dart';
 
 class QuoteOfTheDay extends StatefulWidget {
   const QuoteOfTheDay({super.key});
@@ -26,7 +26,8 @@ class QuoteOfTheDayState extends State<QuoteOfTheDay> {
               quoteText = snapshot.data!.text;
               author = snapshot.data!.author;
             } else if (snapshot.hasError) {
-              quoteText = 'There was an error getting the quote of the day, sorry about that.';
+              quoteText =
+                  'There was an error getting the quote of the day, sorry about that.';
               author = 'Quote App';
             } else {
               quoteText = 'I am fetching the quote of the day for you!';
@@ -40,14 +41,11 @@ class QuoteOfTheDayState extends State<QuoteOfTheDay> {
   Column columnWithQuoteTextAndAuthor(String quote, String author) {
     return Column(children: [
       Text(quote,
-          textScaleFactor: 2,
-          textAlign: TextAlign.center,
-          style: quoteStyle()),
+          textScaleFactor: 2, textAlign: TextAlign.center, style: quoteStyle()),
       Container(
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.only(top: 15, right: 10),
-          child: Text('- $author',
-              textScaleFactor: 1.5, style: authorStyle()))
+          child: Text('- $author', textScaleFactor: 1.5, style: authorStyle()))
     ]);
   }
 

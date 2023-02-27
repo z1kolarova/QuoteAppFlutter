@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:quote_app_flutter/quote.dart';
+import 'package:quote_app_flutter/model/quote.dart';
 import 'package:http/http.dart' as http;
 
 class ZenQuotesAPIClient {
