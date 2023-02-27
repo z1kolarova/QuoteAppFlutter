@@ -29,8 +29,8 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
   }
 
   static List<Quote> list = <Quote>[
-    Quote('Text','Author'),
-    Quote('Text','Author'),
+    Quote('Text 1','Author 1'),
+    Quote('Text 2','Author 2'),
     Quote('Text','Author'),
     Quote('Text','Author'),
     Quote('Text','Author'),
