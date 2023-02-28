@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quote_app_flutter/db/quotes_repository.dart';
 import 'package:quote_app_flutter/model/quote.dart';
 import 'package:quote_app_flutter/screens/components/all_quotes_listview.dart';
+import 'package:quote_app_flutter/screens/quote_edit_screen.dart';
 import 'package:quote_app_flutter/styles/styles.dart';
 
 import '../db/quote_record.dart';
@@ -14,7 +15,6 @@ class AllQuotesScreen extends StatefulWidget {
 }
 
 class AllQuotesScreenState extends State<AllQuotesScreen> {
-
   final Future<List<QuoteRecord>> quotes = QuotesRepository.getAllQuotes();
 
   @override
@@ -26,21 +26,22 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Expanded(child: FutureBuilder<List<QuoteRecord>>(
-              future: quotes,
-              builder: (BuildContext context, AsyncSnapshot<List<QuoteRecord>> snapshot) {
-                if (snapshot.hasData) {
-                  return AllQuotesListView(items: snapshot.data!);
-                }
-                return const AllQuotesListView(items: <QuoteRecord>[]);
-              },
-          )),// AllQuotesListView(items: await quotes)),
-          buildMenuButton('Add new quote', () {})
+          Expanded(
+              child: FutureBuilder<List<QuoteRecord>>(
+            future: quotes,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<QuoteRecord>> snapshot) {
+              if (snapshot.hasData) {
+                return AllQuotesListView(items: snapshot.data!);
+              }
+              return const AllQuotesListView(items: <QuoteRecord>[]);
+            },
+          )), // AllQuotesListView(items: await quotes)),
+          buildMenuButton('Add new quote', switchToQuoteEditingScreen )
         ],
       ),
     );
   }
-
 
   static List<Quote> list = <Quote>[
     Quote('Text 1', 'Author 1'),
@@ -83,5 +84,10 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
             onPressed: onPressed,
             style: MyStyles.defaultButtonStyle(),
             child: Text(text, textScaleFactor: 2)));
+  }
+
+  switchToQuoteEditingScreen() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const QuoteEditScreen()));
   }
 }
