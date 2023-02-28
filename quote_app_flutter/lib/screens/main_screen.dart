@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quote_app_flutter/db/quote_record.dart';
 import 'package:quote_app_flutter/screens/all_quotes_screen.dart';
-import 'package:quote_app_flutter/components/quote_of_the_day.dart';
+import 'package:quote_app_flutter/screens/components/quote_of_the_day.dart';
+
+import '../db/quotes_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -21,7 +24,7 @@ class MainScreenState extends State<MainScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const QuoteOfTheDay(),
-            buildMenuButton('Save quote of the day', () {} ),
+            buildMenuButton('Save quote of the day', saveQuoteOfTheDayToDB ),
             buildMenuButton('View all quotes', switchToAllQuotesListView ),
           ],
         ),
@@ -42,6 +45,10 @@ class MainScreenState extends State<MainScreen> {
     return TextButton.styleFrom(
         backgroundColor: const Color(0xFF10609D),
         foregroundColor: const Color(0xFFC0F0F7));
+  }
+
+  saveQuoteOfTheDayToDB() {
+    QuotesRepository.insertQuote(QuoteRecord(id: 0, text: 'This is a fake quote of the day.', author: 'me'));
   }
 
   switchToAllQuotesListView() {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quote_app_flutter/model/quote.dart';
+import 'package:quote_app_flutter/db/quote_record.dart';
 
 class AllQuotesListView extends StatelessWidget {
-  final List<Quote> items;
+  final List<QuoteRecord> items;
 
   const AllQuotesListView({super.key, required this.items});
 
@@ -14,7 +14,7 @@ class AllQuotesListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
             height: 50,
-            color: Colors.purple,
+            color: Colors.yellow,
             child: Center(
                 child: Text('${items[index].text} - ${items[index].author}')));
       },
