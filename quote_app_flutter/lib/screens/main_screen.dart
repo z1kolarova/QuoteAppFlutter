@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quote_app_flutter/db/quote_record.dart';
 import 'package:quote_app_flutter/screens/all_quotes_screen.dart';
 import 'package:quote_app_flutter/screens/components/quote_of_the_day.dart';
+import 'package:quote_app_flutter/styles/styles.dart';
 
 import '../db/quotes_repository.dart';
 
@@ -37,14 +38,8 @@ class MainScreenState extends State<MainScreen> {
         padding: const EdgeInsets.all(15),
         child: TextButton(
             onPressed: onPressed,
-            style: myButtonStyle(),
+            style: MyStyles.defaultButtonStyle(),
             child: Text(text, textScaleFactor: 2)));
-  }
-
-  ButtonStyle? myButtonStyle() {
-    return TextButton.styleFrom(
-        backgroundColor: const Color(0xFF10609D),
-        foregroundColor: const Color(0xFFC0F0F7));
   }
 
   saveQuoteOfTheDayToDB() {

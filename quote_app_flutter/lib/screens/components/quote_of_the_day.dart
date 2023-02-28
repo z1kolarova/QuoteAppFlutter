@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:quote_app_flutter/model/quote.dart';
 import 'package:quote_app_flutter/model/zen_quotes_api_client.dart';
 
+import '../../styles/styles.dart';
+
 class QuoteOfTheDay extends StatefulWidget {
   const QuoteOfTheDay({super.key});
 
@@ -41,22 +43,11 @@ class QuoteOfTheDayState extends State<QuoteOfTheDay> {
   Column columnWithQuoteTextAndAuthor(String quote, String author) {
     return Column(children: [
       Text(quote,
-          textScaleFactor: 2, textAlign: TextAlign.center, style: quoteStyle()),
+          textScaleFactor: 2, textAlign: TextAlign.center, style: MyStyles.quoteStyle()),
       Container(
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.only(top: 15, right: 10),
-          child: Text('- $author', textScaleFactor: 1.5, style: authorStyle()))
+          child: Text('- $author', textScaleFactor: 1.5, style: MyStyles.authorStyle()))
     ]);
-  }
-
-  TextStyle? quoteStyle() {
-    return const TextStyle(color: Color(0xFF10609D), fontFamily: "Sans");
-  }
-
-  TextStyle? authorStyle() {
-    return const TextStyle(
-        color: Color(0xFF10609D),
-        fontFamily: "Sans",
-        fontStyle: FontStyle.italic);
   }
 }

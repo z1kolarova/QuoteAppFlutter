@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quote_app_flutter/db/quotes_repository.dart';
 import 'package:quote_app_flutter/model/quote.dart';
 import 'package:quote_app_flutter/screens/components/all_quotes_listview.dart';
+import 'package:quote_app_flutter/styles/styles.dart';
 
 import '../db/quote_record.dart';
 
@@ -80,13 +81,7 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
         padding: const EdgeInsets.all(15),
         child: TextButton(
             onPressed: onPressed,
-            style: myButtonStyle(),
+            style: MyStyles.defaultButtonStyle(),
             child: Text(text, textScaleFactor: 2)));
-  }
-
-  ButtonStyle? myButtonStyle() {
-    return TextButton.styleFrom(
-        backgroundColor: const Color(0xFF10609D),
-        foregroundColor: const Color(0xFFC0F0F7));
   }
 }
