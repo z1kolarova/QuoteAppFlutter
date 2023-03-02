@@ -8,8 +8,8 @@ class QuotesRepository {
     final db = await DBHelper.instance.database;
     await db.insert(
       'quotes',
-      quoteRecord.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      quoteRecord.toMapWithoutID(),
+      conflictAlgorithm: ConflictAlgorithm.fail,
     );
   }
 
@@ -27,7 +27,7 @@ class QuotesRepository {
 
   static Future<void> updateQuote(QuoteRecord quoteRecord) async {
     final db = await DBHelper.instance.database;
-    await db.update('quotes', quoteRecord.toMap(),
+    await db.update('quotes', quoteRecord.toMapWithID(),
         where: 'id = ?', whereArgs: [quoteRecord.id]);
   }
 

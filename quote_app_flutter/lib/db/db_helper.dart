@@ -9,9 +9,7 @@ class DBHelper {
   DBHelper._instance();
 
   Future<Database> get database async {
-    if (db == null) {
-      db = await _initDatabase();
-    }
+    db ??= await _initDatabase();
     return db!;
   }
 

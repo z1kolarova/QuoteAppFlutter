@@ -5,6 +5,8 @@ import 'package:quote_app_flutter/screens/components/quote_of_the_day.dart';
 import 'package:quote_app_flutter/styles/styles.dart';
 
 import '../db/quotes_repository.dart';
+import '../model/quote.dart';
+import '../model/zen_quotes_api_client.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -42,8 +44,9 @@ class MainScreenState extends State<MainScreen> {
             child: Text(text, textScaleFactor: 2)));
   }
 
-  saveQuoteOfTheDayToDB() {
-    QuotesRepository.insertQuote(QuoteRecord(id: 0, text: 'This is a fake quote of the day.', author: 'me'));
+  saveQuoteOfTheDayToDB() async {
+    Quote quote = await ZenQuotesAPIClient.fetchQuoteOfTheDay();
+    QuotesRepository.insertQuote(QuoteRecord(id: 0, text: quote.text, author: quote.author));
   }
 
   switchToAllQuotesListView() {
