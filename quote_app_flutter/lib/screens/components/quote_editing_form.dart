@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../model/quote.dart';
+
 class QuoteEditingForm extends StatefulWidget {
   const QuoteEditingForm({super.key});
 
@@ -11,11 +13,14 @@ class QuoteEditingFormState extends State<QuoteEditingForm> {
   late TextEditingController quoteController;
   late TextEditingController authorController;
 
+  static const routeName = '/quoteInEditing';
+
   @override
   void initState() {
     super.initState();
     quoteController = TextEditingController();
     authorController = TextEditingController();
+
   }
 
   @override
@@ -27,6 +32,10 @@ class QuoteEditingFormState extends State<QuoteEditingForm> {
 
   @override
   Widget build(BuildContext context) {
+    final quote = ModalRoute.of(context)!.settings.arguments as Quote;
+    quoteController.text = quote.text;
+    authorController.text = quote.author;
+
     return Padding(
         padding: EdgeInsets.all(15),
         child: Column(
