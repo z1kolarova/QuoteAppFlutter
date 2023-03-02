@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quote_app_flutter/db/quotes_repository.dart';
-import 'package:quote_app_flutter/model/quote.dart';
 import 'package:quote_app_flutter/screens/components/all_quotes_listview.dart';
 import 'package:quote_app_flutter/screens/quote_edit_screen.dart';
 import 'package:quote_app_flutter/styles/styles.dart';
@@ -37,45 +36,11 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
               return const AllQuotesListView(items: <QuoteRecord>[]);
             },
           )), // AllQuotesListView(items: await quotes)),
-          buildMenuButton('Add new quote', switchToQuoteEditingScreen )
+          buildMenuButton('Add new quote', switchToQuoteEditingScreen)
         ],
       ),
     );
   }
-
-  static List<Quote> list = <Quote>[
-    Quote('Text 1', 'Author 1'),
-    Quote('Text 2', 'Author 2'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author'),
-    Quote('Text', 'Author')
-  ];
 
   Widget buildMenuButton(String text, void Function()? onPressed) {
     return Padding(
@@ -88,6 +53,13 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
 
   switchToQuoteEditingScreen() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const QuoteEditScreen()));
+            MaterialPageRoute(builder: (context) => const QuoteEditScreen()))
+        .then((newQuote) {
+      quotes.then((actualQuotes) {
+        setState(() {
+          actualQuotes.add(newQuote);
+        });
+      });
+    });
   }
 }

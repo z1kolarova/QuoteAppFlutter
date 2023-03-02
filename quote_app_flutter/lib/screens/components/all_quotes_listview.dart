@@ -14,7 +14,6 @@ class AllQuotesListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
             height: 50,
-            color: Colors.yellow,
             child: Center(
                 child: Text('${items[index].text} - ${items[index].author}')));
       },

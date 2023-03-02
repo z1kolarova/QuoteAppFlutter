@@ -4,9 +4,9 @@ import 'package:sqflite/sqflite.dart';
 import 'db_helper.dart';
 
 class QuotesRepository {
-  static Future<void> insertQuote(QuoteRecord quoteRecord) async {
+  static Future<int> insertQuote(QuoteRecord quoteRecord) async {
     final db = await DBHelper.instance.database;
-    await db.insert(
+    return await db.insert(
       'quotes',
       quoteRecord.toMapWithoutID(),
       conflictAlgorithm: ConflictAlgorithm.fail,

@@ -1,10 +1,9 @@
 class QuoteRecord {
-  final int id;
-  final String text;
-  final String author;
+  int id;
+  String text;
+  String author;
 
-  const QuoteRecord(
-      {required this.id, required this.text, required this.author});
+  QuoteRecord({required this.id, required this.text, required this.author});
 
   Map<String, dynamic> toMapWithID() {
     return {

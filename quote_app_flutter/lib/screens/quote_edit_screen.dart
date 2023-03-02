@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quote_app_flutter/screens/components/quote_editing_form.dart';
 import 'package:quote_app_flutter/styles/styles.dart';
+
+import '../db/quote_record.dart';
+import '../db/quotes_repository.dart';
 
 class QuoteEditScreen extends StatefulWidget {
   const QuoteEditScreen({super.key});
@@ -10,6 +12,23 @@ class QuoteEditScreen extends StatefulWidget {
 }
 
 class QuoteEditScreenState extends State<QuoteEditScreen> {
+  late TextEditingController quoteController;
+  late TextEditingController authorController;
+
+  @override
+  void initState() {
+    super.initState();
+    quoteController = TextEditingController();
+    authorController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    authorController.dispose();
+    quoteController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +39,51 @@ class QuoteEditScreenState extends State<QuoteEditScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Center(
-            child: QuoteEditingForm(),
+            child: Padding(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.only(bottom: 15),
+                        alignment: Alignment.centerLeft,
+                        child: const Text('Quote:', textScaleFactor: 2)
+                    ),
+                    TextFormField(
+                      controller: quoteController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the text of the quote';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                          hintText: 'Quote',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black, width: 3))),
+                    ),
+                    Container(
+                        padding: const EdgeInsets.only(top: 15, bottom: 15),
+                        alignment: Alignment.centerLeft,
+                        child: const Text('Author:', textScaleFactor: 2)
+                    ),
+                    TextFormField(
+                      controller: authorController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the author of the quote';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                          hintText: 'Author',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black, width: 3))),
+                    ),
+                  ],
+                )),
           ),
-          buildMenuButton('Save', () {}),
+          buildMenuButton('Save', SaveQuoteToDB),
         ],
       ),
     );
@@ -35,5 +96,12 @@ class QuoteEditScreenState extends State<QuoteEditScreen> {
             onPressed: onPressed,
             style: MyStyles.defaultButtonStyle(),
             child: Text(text, textScaleFactor: 2)));
+  }
+
+  void SaveQuoteToDB() async {
+    QuoteRecord newQuote = QuoteRecord(id: 0, text: quoteController.text, author: authorController.text);
+    int newId = await QuotesRepository.insertQuote(newQuote);
+    newQuote.id = newId;
+    Navigator.pop(context, newQuote);
   }
 }
