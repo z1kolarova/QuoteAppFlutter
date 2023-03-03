@@ -40,12 +40,12 @@ class QuoteEditScreenState extends State<QuoteEditScreen> {
         children: <Widget>[
           Center(
             child: Padding(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        padding: EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.only(bottom: 15),
                         alignment: Alignment.centerLeft,
                         child: const Text('Quote:', textScaleFactor: 2)
                     ),
