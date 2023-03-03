@@ -5,7 +5,8 @@ import '../db/quote_record.dart';
 import '../db/quotes_repository.dart';
 
 class QuoteEditScreen extends StatefulWidget {
-  const QuoteEditScreen({super.key});
+  final QuoteRecord? qr;
+  const QuoteEditScreen(this.qr, {super.key});
 
   @override
   State<StatefulWidget> createState() => QuoteEditScreenState();
@@ -19,7 +20,9 @@ class QuoteEditScreenState extends State<QuoteEditScreen> {
   void initState() {
     super.initState();
     quoteController = TextEditingController();
+    quoteController.text = widget.qr?.text ?? '';
     authorController = TextEditingController();
+    authorController.text = widget.qr?.author ?? '';
   }
 
   @override
@@ -83,7 +86,7 @@ class QuoteEditScreenState extends State<QuoteEditScreen> {
                   ],
                 )),
           ),
-          buildMenuButton('Save', SaveQuoteToDB),
+          buildMenuButton('Save', saveQuoteToDB),
         ],
       ),
     );
@@ -98,10 +101,15 @@ class QuoteEditScreenState extends State<QuoteEditScreen> {
             child: Text(text, textScaleFactor: 2)));
   }
 
-  void SaveQuoteToDB() async {
-    QuoteRecord newQuote = QuoteRecord(id: 0, text: quoteController.text, author: authorController.text);
-    int newId = await QuotesRepository.insertQuote(newQuote);
-    newQuote.id = newId;
+  void saveQuoteToDB() async {
+    QuoteRecord newQuote = QuoteRecord(id: widget.qr?.id ?? 0, text: quoteController.text, author: authorController.text);
+    if(widget.qr != null) {
+      await QuotesRepository.updateQuote(newQuote);
+    }
+    else {
+      int newId = await QuotesRepository.insertQuote(newQuote);
+      newQuote.id = newId;
+    }
     Navigator.pop(context, newQuote);
   }
 }

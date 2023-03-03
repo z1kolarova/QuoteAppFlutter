@@ -59,6 +59,14 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
             children: [
               Container(
                 alignment: Alignment.bottomLeft,
+                padding: const EdgeInsets.only(left: 10),
+                child: TextButton(
+                    onPressed: () => switchToQuoteEditingScreenWithQuote(index, items[index]),
+                    style: MyStyles.defaultButtonStyle(),
+                    child: const Text('Edit', textScaleFactor: 1.3)),
+              ),
+              Container(
+                alignment: Alignment.bottomLeft,
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: TextButton(
                     onPressed: () => deleteTheQuote(index),
@@ -101,11 +109,22 @@ class AllQuotesScreenState extends State<AllQuotesScreen> {
 
   switchToQuoteEditingScreen() {
     Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const QuoteEditScreen()))
+            MaterialPageRoute(builder: (context) => const QuoteEditScreen(null)))
         .then((newQuote) {
       quotes.then((actualQuotes) {
         setState(() {
           actualQuotes.add(newQuote);
+        });
+      });
+    });
+  }
+
+  switchToQuoteEditingScreenWithQuote(int index, QuoteRecord quote) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => QuoteEditScreen(quote)))
+        .then((newQuote) {
+      quotes.then((actualQuotes) {
+        setState(() {
+          actualQuotes.replaceRange(index, index + 1, <QuoteRecord> [newQuote]);
         });
       });
     });
